@@ -14,9 +14,10 @@ public class PlayGame {
 
         System.out.println("Welcome to Pigeon, enter \"look around\" to begin the game!");
 
-        //creates new pigeon and map locations
-        Pigeon myPigeon = new Pigeon();
+        //creates new map
+        Map myMap = new Map();
 
+        //gets user response
         userResponse = input.nextLine();
 
         //give the opening message and prompt the user to start the game
@@ -42,45 +43,79 @@ public class PlayGame {
             //movement
             if (userResponse.toLowerCase().contains("go") || userResponse.toLowerCase().contains("walk") || userResponse.toLowerCase().contains("fly")){
                 if (userResponse.toLowerCase().contains("north")){
-                    myPigeon.move("n");
+                    if (myMap.canMoveNorth){
+                        myMap.myPigeon.move("n");
+                        myMap.checkLocation();
+                    }
+                    else{
+                        System.out.println("The path towards your north is obstructed");
+                     }
                 }
                 else if (userResponse.toLowerCase().contains("south")){
-                    myPigeon.move("s");
+                    if (myMap.canMoveSouth){
+                        myMap.myPigeon.move("s");
+                        myMap.checkLocation();
+                    }
+                    else{
+                        System.out.println("The path towards your south is obstructed");
+                     }
                 }
                 else if (userResponse.toLowerCase().contains("east")){
-                    myPigeon.move("e");
+                    if (myMap.canMoveEast){
+                        myMap.myPigeon.move("e");
+                        myMap.checkLocation();
+                    }
+                    else{
+                        System.out.println("The path towards your east is obstructed");
+                     }
                 }
                 else if (userResponse.toLowerCase().contains("west")){
-                    myPigeon.move("w");
+                    if (myMap.canMoveWest){
+                        myMap.myPigeon.move("w");
+                        myMap.checkLocation();
+                    }
+                    else{
+                        System.out.println("The path towards your west is obstructed");
+                     }
                 }
                 else {
                     System.out.println("Please enter go + north, south, east, or west.");
                 }
             }
 
-            //interaction
-            else if (userResponse.toLowerCase().contains("talk") || userResponse.toLowerCase().contains("interact")){
-                System.out.println("talking...");
-            }
-
-            //picking up an item
-            else if(userResponse.toLowerCase().contains("take") || userResponse.toLowerCase().contains("grab") || userResponse.toLowerCase().contains("pick up")){
-                System.out.println("taking...");
-            }
-
             //dropping an item
             else if (userResponse.toLowerCase().contains("drop") || userResponse.toLowerCase().contains("discard")){
-                System.out.println("dropping...");
-            }
-
-            //looking around
-            else if (userResponse.toLowerCase().contains("look")){
-                System.out.println("looking around");
+                if (userResponse.toLowerCase().contains("worm")){
+                    myMap.myPigeon.worms -= 1;
+                    System.out.println("You have dropped a worm. You now have " + myMap.myPigeon.worms + " worms.");
+                }
+                else if (userResponse.toLowerCase().contains("ball")){
+                    myMap.myPigeon.drop("ball");
+                }
+                else if (userResponse.toLowerCase().contains("bread")){
+                    myMap.myPigeon.drop("Bread");
+                }
+                else if (userResponse.toLowerCase().contains("milk")){
+                    myMap.myPigeon.drop("Milk");
+                }
+                else if (userResponse.toLowerCase().contains("key")){
+                    myMap.myPigeon.drop("Key");
+                }
+                else if (userResponse.toLowerCase().contains("water")){
+                    myMap.myPigeon.drop("Water");
+                }
             }
 
             //gives possible commands
             else if (userResponse.toLowerCase().contains("help")){
-                System.out.println("helping...");
+                System.out.println("The possible commands are: ");
+                System.out.println("- go + north, south, east, or west");
+                System.out.println("- show inventory");
+                System.out.println("- drop + an item from your inventory");
+                System.out.println("- leave to exit a location");
+                System.out.println("- talk to interact with an NPC");
+                System.out.println("- grab to take an item");
+                System.out.println("- quit to exit the game (your progress will not be saved)");
             }
 
             //exits the game
@@ -92,9 +127,11 @@ public class PlayGame {
 
             else if (userResponse.toLowerCase().equals("show inventory")) {
                 System.out.println("inventory: ");
-                for (int i=0; i<myPigeon.inventory.size(); i++){
-                    System.out.println(myPigeon.inventory.get(i));
+                for (int i=0; i<myMap.myPigeon.inventory.size(); i++){
+                    System.out.println(myMap.myPigeon.inventory.get(i));
                 }
+                System.out.println("$" + myMap.myPigeon.money);
+                System.out.println("Worms: " + myMap.myPigeon.worms);
             }
 
             else{
