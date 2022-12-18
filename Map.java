@@ -1,8 +1,6 @@
 import java.util.Random;
 import java.util.Scanner;
 
-import javax.swing.text.DefaultEditorKit.InsertBreakAction;
-
 public class Map {
 
     public static Scanner input = new Scanner(System.in);
