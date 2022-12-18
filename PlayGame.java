@@ -3,24 +3,24 @@ public class PlayGame {
 
     public static void main(String[] args) {
 
-        // tells us whether the game is still running
+        /*tells us whether the game is still running*/
         boolean isRunning = false;
 
-        // gets input from the user
+        /*gets input from the user*/
         Scanner input = new Scanner(System.in);
 
-        // Storage for user's responses
+        /*Storage for user's responses*/
         String userResponse = "";
 
         System.out.println("Welcome to Pigeon, enter \"look around\" to begin the game!");
 
-        //creates new map
+        /*creates new map*/
         Map myMap = new Map();
 
-        //gets user response
+        /*gets user response*/
         userResponse = input.nextLine();
 
-        //give the opening message and prompt the user to start the game
+       /* prompts the user to start the game */
         do {
             if (userResponse.toLowerCase().equals("look around")){
                 System.out.println("You are awoken by the sound of your hungry baby pigeons.");
@@ -35,12 +35,12 @@ public class PlayGame {
             }
         } while (!isRunning);
 
-        //main game loop
+        /* main game loop*/
         do {
-            //gets user input
+
             userResponse = input.nextLine();
 
-            //movement
+            /* calls movement function and checks pigeon's location */
             if (userResponse.toLowerCase().contains("go") || userResponse.toLowerCase().contains("walk") || userResponse.toLowerCase().contains("fly")){
                 if (userResponse.toLowerCase().contains("north")){
                     if (myMap.canMoveNorth){
@@ -83,7 +83,7 @@ public class PlayGame {
                 }
             }
 
-            //dropping an item
+            /* calls the drop function on pigeon */
             else if (userResponse.toLowerCase().contains("drop") || userResponse.toLowerCase().contains("discard")){
                 if (userResponse.toLowerCase().contains("worm")){
                     myMap.myPigeon.worms -= 1;
@@ -106,7 +106,7 @@ public class PlayGame {
                 }
             }
 
-            //gives possible commands
+            /* gives possible commands*/
             else if (userResponse.toLowerCase().contains("help")){
                 System.out.println("The possible commands are: ");
                 System.out.println("- go + north, south, east, or west");
@@ -118,13 +118,14 @@ public class PlayGame {
                 System.out.println("- quit to exit the game (your progress will not be saved)");
             }
 
-            //exits the game
+            /* exits the game*/
             else if (userResponse.toLowerCase().contains("quit") || userResponse.toLowerCase().contains("exit") || userResponse.toLowerCase().contains("stop")){
                 System.out.println("exiting the game...");
                 isRunning = false;
                 input.close();
             }
 
+            /* prints inventory and amount of worms and money */
             else if (userResponse.toLowerCase().equals("show inventory")) {
                 System.out.println("inventory: ");
                 for (int i=0; i<myMap.myPigeon.inventory.size(); i++){

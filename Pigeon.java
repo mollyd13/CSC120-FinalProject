@@ -2,12 +2,14 @@ import java.util.ArrayList;
 
 public class Pigeon {
 
+    /* pigeon attributes */
     int xpos;
     int ypos;
     ArrayList<String> inventory;
     float money;
     int worms;
 
+    /* pigeon constructor */
     public Pigeon() {
         this.xpos = 0;
         this.ypos = 0;
@@ -16,6 +18,9 @@ public class Pigeon {
         this.worms = 0;
     }
 
+    /* changes the pigeon's coordinates based on the inputted direction
+     * @param direction the way the user would like to move
+     */
     public void move(String direction) {
         switch (direction) {
             case "n":
@@ -38,12 +43,18 @@ public class Pigeon {
         }
     }
 
+    /* adds an item to the inventory
+     * @param item the thing you would like to grab
+     */
     public void grab(String item) {
         inventory.add(item);
         System.out.println(
                 item + " has been added to your inventory. Use drop to get rid of it.");
     }
 
+    /* removes an item from the inventory
+     * @param item the thing you would like to drop
+     */
     public void drop(String item) {
         if (inventory.contains(item)) {
             inventory.remove(item);
@@ -53,6 +64,10 @@ public class Pigeon {
         }
     }
 
+    /* tells the user whether they can afford an item
+     * @param item the thing you want to know if you can afford
+     * @return whether or not they have enough money to buy the item
+     */
     public boolean canAfford(String item) {
         if (item.equals("Water")) {
             return money >= 2;

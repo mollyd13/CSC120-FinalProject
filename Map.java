@@ -3,28 +3,33 @@ import java.util.Scanner;
 
 public class Map {
 
+    /* gets and stores the user's input */
     public static Scanner input = new Scanner(System.in);
     String userResponse;
 
+    /* booleans for the check location method */
     public boolean canMoveNorth = false;
     public boolean canMoveSouth = true;
     public boolean canMoveEast = false;
     public boolean canMoveWest = true;
 
+    /* quest specific booleans */
     public boolean childQuestComplete = false;
     public boolean womanQuestComplete = false;
-
     public boolean inStore;
     public boolean inFountain;
     public boolean inSewer;
     public boolean isUnlocked = false;
     public boolean talkedToWoman;
 
+    /* creates a new pigeon */
     Pigeon myPigeon = new Pigeon();
 
+    /* empty map constructor */
     public Map() {
     }
 
+    /* method that is called when you enter the nest, asks the user if they would like to end the game and acts accordingly */
     public void nest() {
         System.out.println(
                 "Would you like to return to the nest? This is an irreversible decision that will end the game.");
@@ -47,6 +52,7 @@ public class Map {
         }
     }
 
+    /* method that is called when the player enters the park, starts the child's quest and gives a worm if it is completed */
     public void park() {
 
         if (childQuestComplete) {
@@ -103,6 +109,7 @@ public class Map {
         }
     }
 
+    /* method that is called when the player enters the river, starts the old woman's quest and gives a worm if it is completed */
     public void river() {
         if (womanQuestComplete) {
             System.out.println(
@@ -158,6 +165,7 @@ public class Map {
         }
     }
 
+    /* method that is called when the player enters the store, prompts the user with available items to buy */
     public void store() {
         System.out.println("You enter the store, dodging shopping carts and eager humans.");
         System.out.println("As you walk through the aisles you see: ");
@@ -233,6 +241,7 @@ public class Map {
         }
     }
 
+    /* method that is called when the player enters the town square, when the fountain is approached the user can grab coins from it*/
     public void square() {
         System.out.println("You enter into a bustling town square, crowded with children and families.");
         System.out.println(
@@ -272,8 +281,8 @@ public class Map {
 
     }
 
+    /* method that is called when the player enters the sewer, the manhole can only be opened with a key and then worms can be grabbed from it */
     public void sewer() {
-        // add worms to the inventory if user has key
         System.out.println(
                 "You reach the manhole cover and see that it is locked. Through the cracks, you can see that inside the manhole is hundreds of worms!");
         inSewer = true;
@@ -307,7 +316,9 @@ public class Map {
                 System.out.println(
                         "1 worm has been added to your inventory. You now have " + myPigeon.worms + " worms total.");
             } else if (userResponse.contains("leave")) {
-                System.out.println("You have left the manhole and are now in the alley at (" + myPigeon.xpos + ", "
+                myPigeon.xpos = 3;
+                myPigeon.ypos = -2;
+                System.out.println("You have left the manhole and are now at (" + myPigeon.xpos + ", "
                         + myPigeon.ypos + ").");
                 return;
             } else {
@@ -317,6 +328,7 @@ public class Map {
 
     }
 
+    /* changes the movement booleans and gives different messages depending on the pigeon's location  */
     public void checkLocation() {
 
         if (myPigeon.xpos == 0 && myPigeon.ypos == 0) {
